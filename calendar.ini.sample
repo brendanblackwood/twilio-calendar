@@ -1,0 +1,7 @@
+[google]
+user=gmail_address
+pass=gmail_password
+
+[twilio]
+sid=twilio_SID
+authtoken=twilio_authtoken
