@@ -1,7 +1,9 @@
-[google]
-user=gmail_address
-pass=gmail_password
-
 [twilio]
 sid=twilio_SID
 authtoken=twilio_authtoken
+
+[mysql]
+host=mysql_server_host
+user=mysql_server_user
+pass=mysql_server_password
+db_name=mysql_database_name

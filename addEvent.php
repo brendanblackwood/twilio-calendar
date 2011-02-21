@@ -6,14 +6,21 @@
 	
 	if ($_REQUEST['TranscriptionStatus'] == 'completed') {
 		$sText = $_REQUEST['TranscriptionStatus'];
+		$sFromNumber = $_REQUEST['From'];
 	} else if ($_REQUEST['Body']) {
 		$sText = $_REQUEST['Body'];
+		$sFromNumber = $_REQUEST['From'];
 	} else {
 		// @todo add some failure logic
 	}
 	
 	try {
-		createQuickAddEvent($oGoogleClient, $sText);
+		if ($aAccount = getAccount($sFromNumber)) {
+			$oGoogleClient = getGoogleClient($aAccount['email'], $aAccount['pass']);
+			createQuickAddEvent($oGoogleClient, $sText);
+		} else {
+			// this person doesn't exist in the system, we should probably message that to them in some way
+		}
 	} catch (Exception $e) {
 		// @todo add some failure logic
 		$log .= $e->getMessage() . "\n";

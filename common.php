@@ -14,9 +14,8 @@
 	Zend_Loader::loadClass('Zend_Gdata_Calendar');
 	
 	// Get configs
+	global $aConfig;
 	$aConfig = parse_ini_file('calendar.ini', true);
-	
-	$oGoogleClient = Zend_Gdata_ClientLogin::getHttpClient($aConfig['google']['user'], $aConfig['google']['pass'], Zend_Gdata_Calendar::AUTH_SERVICE_NAME);
 	
 	// Set our AccountSid and AuthToken
 	$sAccountSid = $aConfig['twilio']['sid'];
@@ -25,13 +24,42 @@
 	// Instantiate a new Twilio Rest Client
 	$oTwilioClient = new TwilioRestClient($sAccountSid, $sAuthToken);
 	
-	$aPeople = array(
-		'+18314192996' => "Brendan Blackwood",
-	);
+	/**
+	 * Attempt to retrieve an account by phone number from the database
+	 */
+	function getAccount($sPhone)
+	{
+		global $aConfig;
+		mysql_connect($aConfig['mysql']['host'], $aConfig['mysql']['user'], $aConfig['mysql']['pass']);
+		
+		// Make sure we are using the correct database
+		$sDb = $aConfig['mysql']['db_name'];
+		mysql_query("use $sDb");
+		
+		$sQuery = sprintf("SELECT * FROM account WHERE phone='%s'",
+			mysql_real_escape_string($sPhone));
+		$oResult = mysql_query($sQuery);
+		if (!$oResult || mysql_num_rows($oResult) == 0) {
+			return false;
+		}
+		
+		return mysql_fetch_assoc($oResult);
+	}
 	
-	// Stolen from Google's API documentation 
-	// http://code.google.com/apis/calendar/data/1.0/developers_guide_php.html#AuthClientLogin
-	function createQuickAddEvent ($client, $quickAddText) {
+	/**
+	 * Get a Google Calendar API client object
+	 */
+	function getGoogleClient($sUser, $sPassword)
+	{
+		return Zend_Gdata_ClientLogin::getHttpClient($sUser, $sPassword, Zend_Gdata_Calendar::AUTH_SERVICE_NAME);
+	}
+	
+	/**
+	 * Make a call to the Google Calendar API to add an event
+	 * Stolen from Google's API documentation
+	 * http://code.google.com/apis/calendar/data/1.0/developers_guide_php.html#AuthClientLogin
+	 */
+	function createQuickAddEvent($client, $quickAddText) {
 		$gdataCal = new Zend_Gdata_Calendar($client);
 		$event = $gdataCal->newEventEntry();
 		$event->content = $gdataCal->newContent($quickAddText);
