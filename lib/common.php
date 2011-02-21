@@ -17,13 +17,6 @@
 	global $aConfig;
 	$aConfig = parse_ini_file('calendar.ini', true);
 	
-	// Set our AccountSid and AuthToken
-	$sAccountSid = $aConfig['twilio']['sid'];
-	$sAuthToken = $aConfig['twilio']['authtoken'];
-	
-	// Instantiate a new Twilio Rest Client
-	$oTwilioClient = new TwilioRestClient($sAccountSid, $sAuthToken);
-	
 	/**
 	 * Attempt to retrieve an account by phone number from the database
 	 */
