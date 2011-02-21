@@ -56,5 +56,27 @@
 		$event->quickAdd = $gdataCal->newQuickAdd('true');
 		$newEvent = $gdataCal->insertEvent($event);
 	}
+	
+	/**
+	 * Get all events from now until the end of the day
+	 * 
+	 * @todo make this work for more than just Eastern time
+	 */
+	function getTodaysEvents($oClient) 
+	{
+		$sStartDate = date("Y-m-d\TH:i:s-05:00", time());
+		$sEndDate = date("Y-m-d\TH:i:s-05:00", strtotime('tomorrow'));
+		
+		$gdataCal = new Zend_Gdata_Calendar($oClient);
+		$oQuery = $gdataCal->newEventQuery();
+		$oQuery->setUser('default');
+		$oQuery->setVisibility('private');
+		$oQuery->setProjection('full');
+		$oQuery->setOrderby('starttime');
+		$oQuery->setSortOrder('ascending');
+		$oQuery->setStartMin($sStartDate);
+		$oQuery->setStartMax($sEndDate);
+		return $gdataCal->getCalendarEventFeed($oQuery);
+	}
 
 ?>
