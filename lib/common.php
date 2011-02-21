@@ -2,9 +2,6 @@
 
 	set_include_path(get_include_path() . PATH_SEPARATOR . 'lib');
 	
-	// Pull in Twilio PHP library
-	require 'Twilio/twilio.php';
-	
 	// Pull in Zend PHP Gdata client library
 	require 'Zend/Loader.php';
 	Zend_Loader::loadClass('Zend_Gdata');
