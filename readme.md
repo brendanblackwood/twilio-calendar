@@ -22,7 +22,12 @@ PHP/MySQL
 You need to be running a web server that can run [PHP](http://www.php.net) with [MySQL](http://www.mysql.com/) installed.
 
 
+Google API
+------
+Everything to run this app is included in lib, but for actual Google API usage, you should refer to the [documentation](http://code.google.com/apis/calendar/data/1.0/developers_guide_php.html) provided by Google.
+
+
 Demo
 ------
 
-A demo is hosted at [http://www.brendanblackwood.com/twilio-calendar/account.php]()
+A demo is hosted at [http://www.brendanblackwood.com/twilio-calendar/account.php](http://www.brendanblackwood.com/twilio-calendar/account.php)
