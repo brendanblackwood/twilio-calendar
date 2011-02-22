@@ -40,8 +40,8 @@ Installation:
 	
 * create a twilio account 
 	
-* point SMS url to `[yourdomain/twilio-calendar/addEvent.php]`
+* point SMS url to `[yourdomain]/twilio-calendar/addEvent.php`
 
-* point Voice url to `[yourdomain/twilio-calendar/recordCall.php]` 
+* point Voice url to `[yourdomain]/twilio-calendar/recordCall.php` 
 	
 A live demo is hosted at [http://www.brendanblackwood.com/twilio-calendar/account.php](http://www.brendanblackwood.com/twilio-calendar/account.php)
