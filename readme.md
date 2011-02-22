@@ -27,7 +27,21 @@ Google API
 Everything to run this app is included in lib, but for actual Google API usage, you should refer to the [documentation](http://code.google.com/apis/calendar/data/1.0/developers_guide_php.html) provided by Google.
 
 
-Demo
+Installation and Demo
 ------
 
-A demo is hosted at [http://www.brendanblackwood.com/twilio-calendar/account.php](http://www.brendanblackwood.com/twilio-calendar/account.php)
+Installation:
+
+* copy files to a webserver
+	
+* `mv calendar.ini.sample calendar.ini`
+	
+* add your database information to calendar.ini
+	
+* create a twilio account 
+	
+* point SMS url to `[yourdomain/twilio-calendar/addEvent.php]`
+
+* point Voice url to `[yourdomain/twilio-calendar/recordCall.php]` 
+	
+A live demo is hosted at [http://www.brendanblackwood.com/twilio-calendar/account.php](http://www.brendanblackwood.com/twilio-calendar/account.php)
