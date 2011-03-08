@@ -1,8 +1,49 @@
 <?php
 	
-	require 'common.php';
+	require '../lib/common.php';
 	
-	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$bAjax = isset($_SERVER["HTTP_X_REQUESTED_WITH"]) ? $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" : false;
+	
+	if ($_SERVER['REQUEST_METHOD'] == 'POST' && $bAjax) {
+		$aSubmit = $_REQUEST['submit'];
+		// Format the phone number in the form +1XXXXXXXXXX of +0XXXXXXXXXX
+		// I'm not sure if the collect call format +0 ever actually comes up, but might as well have it
+		$aSubmit['phone'] = str_replace(array('+','-','(',')','.','-'), '', $aSubmit['phone']);
+		if (substr($aSubmit['phone'], 0, 1) == '0' || substr($aSubmit['phone'], 0, 1) == '1') {
+			$aSubmit['phone'] = '+' . $aSubmit['phone'];
+		} else {
+			$aSubmit['phone'] = '+1' . $aSubmit['phone'];
+		}
+
+		$aErrors = validateInput($aSubmit);
+
+		// If there were no errors, connect to mysql and insert the data
+		if (empty($aErrors)) {
+			mysql_connect($aConfig['mysql']['host'], $aConfig['mysql']['user'], $aConfig['mysql']['pass']);
+			
+			// Make sure we are using the correct database
+			$sDb = $aConfig['mysql']['db_name'];
+			mysql_query("use $sDb");
+			
+			$sQuery = sprintf("INSERT INTO account (phone, email, pass, name) VALUES ('%s', '%s', '%s', '%s')",
+				mysql_real_escape_string($_POST['phone']),
+				mysql_real_escape_string($_POST['email']),
+				mysql_real_escape_string($_POST['password']),
+				mysql_real_escape_string($_POST['name']));
+			$bResult = mysql_query($sQuery);
+			
+			if (!$bResult) {
+				$aError['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+			}
+		}
+		
+		$aReturn = array(
+			'errors' => $aErrors,
+			'message' => "Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.",
+		);
+		echo json_encode($aReturn);
+		
+	} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Format the phone number in the form +1XXXXXXXXXX of +0XXXXXXXXXX
 		// I'm not sure if the collect call format +0 ever actually comes up, but might as well have it
 		$_POST['phone'] = str_replace(array('+','-','(',')','.','-'), '', $_POST['phone']);
@@ -72,6 +113,7 @@
 	}
 ?>
 
+<?php if (!$bAjax) { ?>
 <html>
 	<body>
 		<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
@@ -101,3 +143,4 @@
 		<?php } ?>
 	</body>	
 </html>
+<?php } ?>
