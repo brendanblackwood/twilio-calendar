@@ -33,13 +33,20 @@
 			$bResult = mysql_query($sQuery);
 			
 			if (!$bResult) {
-				$aError['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+				$sStatus = 'error';
+				$aMessages['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+			} else {
+				$sStatus = 'success';
+				$aMessages = array('success' => 'Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.');
 			}
+		} else {
+			$sStatus = 'fail';
+			$aMessages = $aErrors;
 		}
 		
 		$aReturn = array(
-			'errors' => $aErrors,
-			'message' => "Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.",
+			'status' => $sStatus,
+			'data' => array('messages' => $aMessages),
 		);
 		echo json_encode($aReturn);
 		
@@ -71,7 +78,7 @@
 			$bResult = mysql_query($sQuery);
 			
 			if (!$bResult) {
-				$aError['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+				$aErrors['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
 			}
 		}
 	}
