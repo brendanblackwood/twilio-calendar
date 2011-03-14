@@ -33,7 +33,11 @@
 			
 			if (!$bResult) {
 				$sStatus = 'error';
-				$aMessages['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+				if (strpos(mysql_error(), 'Duplicate entry') !== false) {
+					$aMessages['mysql'] = "That phone number is already in use. Do you already have an account?";
+				} else {
+					$aMessages['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+				}
 			} else {
 				$sStatus = 'success';
 				$aMessages = array('success' => 'Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.');
