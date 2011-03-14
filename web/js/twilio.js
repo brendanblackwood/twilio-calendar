@@ -5,7 +5,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var $form = $(this);
 		
-		$.post('/web/account.php', $(this).serialize(), function(response) {
+		$.post('account.php', $(this).serialize(), function(response) {
 			$form.processResponse({ response: response });
 		});
 	});
@@ -63,8 +63,9 @@ $.fn.extend({
 		var response = $.parseJSON(options.response);
 
 		if ( response.status == "fail" ) {
+			$('#global').empty();
+			
 			var messages = response.data.messages;
-
 			for ( var i in messages ) {
 				
 				$('div.error[data-type="'+i+'"]')
@@ -74,8 +75,23 @@ $.fn.extend({
 					.addClass('hasError');
 			}
 		}
+		else if ( response.status == "error" ) {
+			$('#global').empty();
+			
+			var messages =  response.data.messages;
+			for ( var i in messages ) {
+				$('#global').append('<p>'+messages[i]+'</p>');
+			}
+		}
+		else if (response.status == "success") {
+			$('#global')
+				.empty()
+				.append('<p>'+response.data.messages.success+'</p>');
+		}
 		else {
-			// we good to go
+			$('#global')
+				.empty()
+				.append('<p>I dunno what went wrong :(</p>');
 		}
 	}
 });

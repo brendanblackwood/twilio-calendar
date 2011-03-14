@@ -120,6 +120,7 @@
             		<span class="year"></span>
             	</div>
             	<div class="calendar-body-inner">
+            	<div id="global"></div>
                 <form name="register" method="post" action="account.php">
                 
                 	<input type="text" name="name" class="grid_4 alpha omega" placeholder="Your Name" value="" /><div data-type="name" class="error"></div>
