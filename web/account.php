@@ -5,17 +5,16 @@
 	$bAjax = isset($_SERVER["HTTP_X_REQUESTED_WITH"]) ? $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" : false;
 	
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' && $bAjax) {
-		$aSubmit = $_REQUEST;
 		// Format the phone number in the form +1XXXXXXXXXX of +0XXXXXXXXXX
 		// I'm not sure if the collect call format +0 ever actually comes up, but might as well have it
-		$aSubmit['phone'] = str_replace(array('+','-','(',')','.','-'), '', $aSubmit['phone']);
-		if (substr($aSubmit['phone'], 0, 1) == '0' || substr($aSubmit['phone'], 0, 1) == '1') {
-			$aSubmit['phone'] = '+' . $aSubmit['phone'];
+		$_REQUEST['phone'] = str_replace(array('+','-','(',')','.','-'), '', $_REQUEST['phone']);
+		if (substr($_REQUEST['phone'], 0, 1) == '0' || substr($_REQUEST['phone'], 0, 1) == '1') {
+			$_REQUEST['phone'] = '+' . $_REQUEST['phone'];
 		} else {
-			$aSubmit['phone'] = '+1' . $aSubmit['phone'];
+			$_REQUEST['phone'] = '+1' . $_REQUEST['phone'];
 		}
 
-		$aErrors = validateInput($aSubmit);
+		$aErrors = validateInput($_REQUEST);
 
 		// If there were no errors, connect to mysql and insert the data
 		if (empty($aErrors)) {
@@ -26,10 +25,10 @@
 			mysql_query("use $sDb");
 			
 			$sQuery = sprintf("INSERT INTO account (phone, email, pass, name) VALUES ('%s', '%s', '%s', '%s')",
-				mysql_real_escape_string($_POST['phone']),
-				mysql_real_escape_string($_POST['email']),
-				mysql_real_escape_string($_POST['password']),
-				mysql_real_escape_string($_POST['name']));
+				mysql_real_escape_string($_REQUEST['phone']),
+				mysql_real_escape_string($_REQUEST['email']),
+				mysql_real_escape_string($_REQUEST['password']),
+				mysql_real_escape_string($_REQUEST['name']));
 			$bResult = mysql_query($sQuery);
 			
 			if (!$bResult) {
