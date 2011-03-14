@@ -49,38 +49,6 @@
 			'data' => array('messages' => $aMessages),
 		);
 		echo json_encode($aReturn);
-		
-	} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		// Format the phone number in the form +1XXXXXXXXXX of +0XXXXXXXXXX
-		// I'm not sure if the collect call format +0 ever actually comes up, but might as well have it
-		$_POST['phone'] = str_replace(array('+','-','(',')','.','-'), '', $_POST['phone']);
-		if (substr($_POST['phone'], 0, 1) == '0' || substr($_POST['phone'], 0, 1) == '1') {
-			$_POST['phone'] = '+' . $_POST['phone'];
-		} else {
-			$_POST['phone'] = '+1' . $_POST['phone'];
-		}
-
-		$aErrors = validateInput($_POST);
-
-		// If there were no errors, connect to mysql and insert the data
-		if (empty($aErrors)) {
-			mysql_connect($aConfig['mysql']['host'], $aConfig['mysql']['user'], $aConfig['mysql']['pass']);
-
-			// Make sure we are using the correct database
-			$sDb = $aConfig['mysql']['db_name'];
-			mysql_query("use $sDb");
-			
-			$sQuery = sprintf("INSERT INTO account (phone, email, pass, name) VALUES ('%s', '%s', '%s', '%s')",
-				mysql_real_escape_string($_POST['phone']),
-				mysql_real_escape_string($_POST['email']),
-				mysql_real_escape_string($_POST['password']),
-				mysql_real_escape_string($_POST['name']));
-			$bResult = mysql_query($sQuery);
-			
-			if (!$bResult) {
-				$aErrors['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
-			}
-		}
 	}
 	
 	/**
