@@ -1,0 +1,124 @@
+/* @override http://twilio.markmmalek.com/web/css/layout.css */
+
+body {
+	background: url(../images/bg-wood-tile.png) repeat top left;
+}
+
+.calendar-body {
+	position: relative;
+	height: 559px;
+	margin-top: 100px;
+	background-image: url(../images/calendar-body.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.calendar-body-inner {
+	position: relative;
+	padding: 0 160px;
+	margin-top: 150px;
+	z-index: 1;
+}
+
+ul.calendar-body-grid {
+	position: absolute;
+	left: 80px;
+	top: 160px;
+}
+
+ul.calendar-body-grid li {
+	padding-left: 30px;
+	border-top: 1px solid #e1e1e1;
+	padding: 0;
+	z-index: 0;
+}
+
+ul.calendar-body-grid li h4 {
+	color: #d1d1d1;
+	font-size: 15px;
+	font-weight: normal;
+	text-align: right;
+	border-right: 1px solid #e1e1e1;
+	padding: 11px 10px;
+	margin-right: 380px;
+}
+
+input[type=text] {
+	background: #b0c1d7;
+	border: 1px solid #6687b4;
+	border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+	padding: 10px 5px;
+	margin: 10px 0;
+	font-size: 12px;
+}
+
+input.hasError {
+	width: 230px !important;
+}
+
+input::-webkit-input-placeholder {
+	color: #6687b4;
+}
+
+.calendar-body-date {
+	position: absolute;
+	width: 100px;
+	height: 40px;
+	top: 70px;
+	right: 100px;
+	font-family: "Myriad Pro", Arial, san-serif;
+}
+
+.calendar-body-date .day {
+	position: absolute;
+	width: 50px;
+	height: 100%;
+	padding: 0 5px 0 0;
+	border-right: 1px solid #959595;
+	font-size: 38px;
+	font-weight: bold;
+	text-align: right;
+	line-height: 45px;
+	vertical-align: middle;
+	color: #656565;
+	left: 0;
+}
+
+.calendar-body-date .month {
+	position: absolute;
+	width: 50px;
+	font-size: 16px;
+	color: #656565;
+	text-align: center;
+	left: 57px;
+	top: 5px;
+}
+
+.calendar-body-date .year {
+	position: absolute;
+	width: 50px;
+	font-size: 14px;
+	color: #656565;
+	text-align: center;
+	left: 57px;
+	top: 20px;
+}
+
+div.error {
+	display: none;
+	position: relative;
+	margin-top: 10px;
+	margin-right: -55px;
+	width: 90px;
+	padding: 5px 10px;
+	background: #fdbeb7;
+	border: 1px solid #a66058;
+	border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+	float: right;
+	font-size: 11px;
+	color: #a66058;
+}

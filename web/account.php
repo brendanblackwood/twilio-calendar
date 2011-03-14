@@ -5,7 +5,7 @@
 	$bAjax = isset($_SERVER["HTTP_X_REQUESTED_WITH"]) ? $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest" : false;
 	
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' && $bAjax) {
-		$aSubmit = $_REQUEST['submit'];
+		$aSubmit = $_REQUEST;
 		// Format the phone number in the form +1XXXXXXXXXX of +0XXXXXXXXXX
 		// I'm not sure if the collect call format +0 ever actually comes up, but might as well have it
 		$aSubmit['phone'] = str_replace(array('+','-','(',')','.','-'), '', $aSubmit['phone']);
@@ -65,7 +65,7 @@
 		// If there were no errors, connect to mysql and insert the data
 		if (empty($aErrors)) {
 			mysql_connect($aConfig['mysql']['host'], $aConfig['mysql']['user'], $aConfig['mysql']['pass']);
-			
+
 			// Make sure we are using the correct database
 			$sDb = $aConfig['mysql']['db_name'];
 			mysql_query("use $sDb");
@@ -121,7 +121,14 @@
 ?>
 
 <?php if (!$bAjax) { ?>
+<!DOCTYPE HTML>
 <html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="css/reset.css" media="screen" />
+        <link rel="stylesheet" href="css/960.css" media="screen" />
+        <link rel="stylesheet" href="css/layout.css" media="screen" />
+    </head>
 	<body>
 		<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') { ?>
 		<?php 
@@ -136,18 +143,42 @@
 			}
 		?>
 		<?php } else { ?>
-		<form method="post" action="account.php">
-			<label for="name">Name</label>
-			<input type="text" name="name" placeholder="Name" />
-			<label for="phone">Phone Number (U.S. Only)</label>
-			<input type="text" name="phone" placeholder="Phone #" />
-			<label for="email">Google Calendar Email Address <span class="note">This is usually the same as your gmail.com email address</span></label>
-			<input type="text" name="email" placeholder="Email" />
-			<label for="password">Google Calendar Password<span class="note">This is usually the same as your gmail.com password</span></label>
-			<input type="text" name="password" placeholder="Password" />
-			<input type="submit" />
-		</form>
+		<div class="container_12">
+        
+            <div class="calendar-body grid_8">
+            	<div class="calendar-body-date">
+            		<span class="day"></span>
+            		<span class="month"></span>
+            		<span class="year"></span>
+            	</div>
+            	<div class="calendar-body-inner">
+                <form name="register" method="post" action="account.php">
+                
+                	<input type="text" name="name" class="grid_4 alpha omega" placeholder="Your Name" value="" /><div data-type="name" class="error"></div>
+                	<div class="clear"></div>
+                	<input type="text" name="phone" class="grid_4 alpha omega" placeholder="Your Phone" value="" /><div data-type="phone" class="error"></div>
+                	<div class="clear"></div>
+                	<input type="text" name="email" class="grid_4 alpha omega" placeholder="Your Gmail" value="" /><div data-type="email" class="error"></div>
+                	<div class="clear"></div>
+                	<input type="text" name="password" class="grid_4 alpha omega" placeholder="Your Gmail Password" value="" /><div data-type="password" class="error"></div>
+                	<div class="clear"></div>
+                	<input type="submit" />
+                </form>
+            	</div>
+            	<ul class="calendar-body-grid grid_6 alpha omega">
+            		<li><h4>7:00</h4></li>
+            		<li><h4>8:00</h4></li>
+            		<li><h4>9:00</h4></li>
+            		<li><h4>10:00</h4></li>
+            		<li><h4>11:00</h4></li>
+            		<li><h4>12:00</h4></li>
+            	</ul>
+            </div>
+        
+        </div>
 		<?php } ?>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    	<script src="js/twilio.js"></script>
 	</body>	
 </html>
 <?php } ?>

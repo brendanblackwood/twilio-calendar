@@ -1,6 +1,6 @@
 <?php
 
-	set_include_path(get_include_path() . PATH_SEPARATOR . getcwd() . '../lib/');
+	set_include_path(get_include_path() . PATH_SEPARATOR . getcwd() . '/../lib/');
 	
 	// Pull in Zend PHP Gdata client library
 	require 'Zend/Loader.php';
