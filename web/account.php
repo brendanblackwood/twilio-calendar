@@ -132,7 +132,7 @@
                 	<div class="clear"></div>
                 	<input type="text" name="email" class="grid_4 alpha omega" placeholder="Your Gmail" value="" /><div data-type="email" class="error"></div>
                 	<div class="clear"></div>
-                	<input type="text" name="password" class="grid_4 alpha omega" placeholder="Your Gmail Password" value="" /><div data-type="password" class="error"></div>
+                	<input type="password" name="password" class="grid_4 alpha omega" placeholder="Your Gmail Password" value="" /><div data-type="password" class="error"></div>
                 	<div class="clear"></div>
                 	<input type="submit" />
                 </form>

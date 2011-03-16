@@ -43,7 +43,7 @@ ul.calendar-body-grid li h4 {
 	margin-right: 380px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
 	background: #b0c1d7;
 	border: 1px solid #6687b4;
 	border-radius: 3px;
