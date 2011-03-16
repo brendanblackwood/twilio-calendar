@@ -7,7 +7,7 @@
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' && $bAjax) {
 		// Format the phone number in the form +1XXXXXXXXXX of +0XXXXXXXXXX
 		// I'm not sure if the collect call format +0 ever actually comes up, but might as well have it
-		$_REQUEST['phone'] = str_replace(array('+','-','(',')','.','-'), '', $_REQUEST['phone']);
+		$_REQUEST['phone'] = str_replace(array('+','-','(',')','.'), '', $_REQUEST['phone']);
 		if (substr($_REQUEST['phone'], 0, 1) == '0' || substr($_REQUEST['phone'], 0, 1) == '1') {
 			$_REQUEST['phone'] = '+' . $_REQUEST['phone'];
 		} else {
@@ -32,15 +32,16 @@
 			$bResult = mysql_query($sQuery);
 			
 			if (!$bResult) {
-				$sStatus = 'error';
 				if (strpos(mysql_error(), 'Duplicate entry') !== false) {
-					$aMessages['mysql'] = "That phone number is already in use. Do you already have an account?";
+					$sStatus = 'fail';
+					$aMessages['phone'] = "That phone number is already in use. Do you already have an account?";
 				} else {
-					$aMessages['mysql'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
+					$sStatus = 'error';
+					$aMessages['global'] = "The deebees aren't doing what they should. You should go do something else and try again later.";
 				}
 			} else {
 				$sStatus = 'success';
-				$aMessages = array('success' => 'Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.');
+				$aMessages = array('global' => 'Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.');
 			}
 		} else {
 			$sStatus = 'fail';
