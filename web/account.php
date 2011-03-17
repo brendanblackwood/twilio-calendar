@@ -18,18 +18,18 @@
 
 		// If there were no errors, connect to mysql and insert the data
 		if (empty($aErrors)) {
-			mysql_connect($aConfig['mysql']['host'], $aConfig['mysql']['user'], $aConfig['mysql']['pass']);
+			@mysql_connect($aConfig['mysql']['host'], $aConfig['mysql']['user'], $aConfig['mysql']['pass']);
 			
 			// Make sure we are using the correct database
 			$sDb = $aConfig['mysql']['db_name'];
-			mysql_query("use $sDb");
-			
+			@mysql_query("use $sDb");
+
 			$sQuery = sprintf("INSERT INTO account (phone, email, pass, name) VALUES ('%s', '%s', '%s', '%s')",
-				mysql_real_escape_string($_REQUEST['phone']),
-				mysql_real_escape_string($_REQUEST['email']),
-				mysql_real_escape_string($_REQUEST['password']),
-				mysql_real_escape_string($_REQUEST['name']));
-			$bResult = mysql_query($sQuery);
+				@mysql_real_escape_string($_REQUEST['phone']),
+				@mysql_real_escape_string($_REQUEST['email']),
+				@mysql_real_escape_string($_REQUEST['password']),
+				@mysql_real_escape_string($_REQUEST['name']));
+			$bResult = @mysql_query($sQuery);
 			
 			if (!$bResult) {
 				if (strpos(mysql_error(), 'Duplicate entry') !== false) {
