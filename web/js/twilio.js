@@ -63,35 +63,43 @@ $.fn.extend({
 		var response = $.parseJSON(options.response);
 
 		if ( response.status == "fail" ) {
-			$('#global').empty();
-			
 			var messages = response.data.messages;
 			for ( var i in messages ) {
 				
-				$('div.error[data-type="'+i+'"]')
-					.text(messages[i])
-					.slideDown(300);
-				$('input[name="'+i+'"]')
-					.addClass('hasError');
+				$(this).displayMessage({ status: response.status, type: i, message: messages[i] });
 			}
-		}
-		else if ( response.status == "error" ) {
-			$('#global').empty();
-			
-			var messages =  response.data.messages;
-			for ( var i in messages ) {
-				$('#global').append('<p>'+messages[i]+'</p>');
-			}
-		}
-		else if (response.status == "success") {
-			$('#global')
-				.empty()
-				.append('<p>'+response.data.messages.success+'</p>');
 		}
 		else {
-			$('#global')
-				.empty()
-				.append('<p>I dunno what went wrong :(</p>');
+			$(this).displayMessage({ status: response.status, message: response.data.messages.global });
+			
+			if ( response.status == "success" ) {
+				$('div.form').fadeOut(300, function() {
+					$('div.success').fadeIn(300);
+				});
+				
+			}
 		}
+	},
+	displayMessage: function(options) {
+		var status 	= options.status,
+			type   	= options.type,
+			message = options.message,
+			$error	= $('div.'+status+'[data-type="'+type+'"]');
+		console.log(status, message);
+		if ( $error.size() > 0 ) {
+			$error.text(message)
+				.slideDown(300);
+			$error.siblings('input[name="'+type+'"]')
+				.addClass('hasError');
+		}
+		else {
+			$('div.'+status).find('div.message')
+				.removeClass('success')
+				.removeClass('error')
+				.addClass(status)
+				.html(message);
+		}
+		
+		return this;
 	}
 });

@@ -2,6 +2,7 @@
 
 body {
 	background: url(../images/bg-wood-tile.png) repeat top left;
+	font-family: "Myriad Pro", Arial, san-serif;
 }
 
 .calendar-body {
@@ -106,19 +107,71 @@ input::-webkit-input-placeholder {
 	top: 20px;
 }
 
-div.error {
+div.fail {
 	display: none;
 	position: relative;
 	margin-top: 10px;
 	margin-right: -55px;
 	width: 90px;
 	padding: 5px 10px;
-	background: #fdbeb7;
-	border: 1px solid #a66058;
+	background: #f6b6b8;
+	border: 1px solid #eb2e23;
 	border-radius: 3px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 	float: right;
 	font-size: 11px;
 	color: #a66058;
+}
+
+div.success.error div.calendar-body-inner div.message {
+	border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+	padding: 10px 5px;
+	margin: 10px 0;
+	font-size: 14px;
+}
+
+div.success.error div.calendar-body-inner div.message.success {
+	background: #a2e995;
+	border: 1px solid #3bab1f;
+	color: #3bab1f;
+}
+
+div.success.error div.calendar-body-inner div.message.error {
+	background: #f6b6b8;
+	border: 1px solid #eb2e23;
+	color: #f6b6b8;
+}
+
+div.success div.calendar-body-inner div.message h4 {
+	font-size: 18px;
+	margin-bottom: 20px;
+}
+
+div.footer {
+	position: absolute;
+	width: 100%;
+	height: 220px;
+	bottom: 1px;
+	background: url(../images/bg-footer.png) repeat-x left center;
+}
+
+div.footer h4 {
+	font-size: 24px;
+	color: #fff;
+	text-transform: uppercase;
+	margin: 30px 120px 20px 120px;
+	padding: 0 0 10px 0;
+	border-bottom: 1px dashed #5c5c5c;
+	text-shadow: 0 3px 6px #050505;
+}
+
+div.footer p {
+	margin: 0 120px 0 120px;
+	color: #fff;
+	font-size: 15px;
+	text-shadow: 0 3px 6px #050505;
+	line-height: 21px;
 }

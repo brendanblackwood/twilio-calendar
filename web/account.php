@@ -41,7 +41,7 @@
 				}
 			} else {
 				$sStatus = 'success';
-				$aMessages = array('global' => 'Hooray, It worked! You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.');
+				$aMessages = array('global' => '<h4>Hooray, It worked!</h4><p>You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.</p>');
 			}
 		} else {
 			$sStatus = 'fail';
@@ -111,43 +111,64 @@
 				}
 				echo "</ul>";
 			} else {
-				echo "<p>Hooray, It worked!<p><br /><p>You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.";
+				echo "<h4>Hooray, It worked!<h4><p>You can now text or call (415) 599-2671 and enter 16706552 to schedule Google Calendar events.</p>";
 			}
 		?>
 		<?php } else { ?>
 		<div class="container_12">
         
-            <div class="calendar-body grid_8">
+            <div class="calendar-body grid_8 push_2">
             	<div class="calendar-body-date">
             		<span class="day"></span>
             		<span class="month"></span>
             		<span class="year"></span>
             	</div>
-            	<div class="calendar-body-inner">
-            	<div id="global"></div>
-                <form name="register" method="post" action="account.php">
-                
-                	<input type="text" name="name" class="grid_4 alpha omega" placeholder="Your Name" value="" /><div data-type="name" class="error"></div>
-                	<div class="clear"></div>
-                	<input type="text" name="phone" class="grid_4 alpha omega" placeholder="Your Phone" value="" /><div data-type="phone" class="error"></div>
-                	<div class="clear"></div>
-                	<input type="text" name="email" class="grid_4 alpha omega" placeholder="Your Gmail" value="" /><div data-type="email" class="error"></div>
-                	<div class="clear"></div>
-                	<input type="password" name="password" class="grid_4 alpha omega" placeholder="Your Gmail Password" value="" /><div data-type="password" class="error"></div>
-                	<div class="clear"></div>
-                	<input type="submit" />
-                </form>
+            	<div class="form">
+	            	<div class="calendar-body-inner">
+		                <form name="register" method="post" action="account.php">
+		                
+		                	<input type="text" name="name" class="grid_4 alpha omega" placeholder="Your Name" value="" /><div data-type="name" class="fail"></div>
+		                	<div class="clear"></div>
+		                	<input type="text" name="phone" class="grid_4 alpha omega" placeholder="Your Phone" value="" /><div data-type="phone" class="fail"></div>
+		                	<div class="clear"></div>
+		                	<input type="text" name="email" class="grid_4 alpha omega" placeholder="Your Gmail" value="" /><div data-type="email" class="fail"></div>
+		                	<div class="clear"></div>
+		                	<input type="password" name="password" class="grid_4 alpha omega" placeholder="Your Gmail Password" value="" /><div data-type="password" class="fail"></div>
+		                	<div class="clear"></div>
+		                	<input type="submit" />
+		                </form>
+	            	</div>
+	            	<ul class="calendar-body-grid grid_6 alpha omega">
+	            		<li><h4>7:00</h4></li>
+	            		<li><h4>8:00</h4></li>
+	            		<li><h4>9:00</h4></li>
+	            		<li><h4>10:00</h4></li>
+	            		<li><h4>11:00</h4></li>
+	            		<li><h4>12:00</h4></li>
+	            	</ul>
+            	</div><!--end form-->
+            	<div class="error success" style="display: none;">
+            		<div class="calendar-body-inner">
+            			<div class="message grid_4 alpha omega"></div>
+            		</div>
+            		<ul class="calendar-body-grid grid_6 alpha omega">
+	            		<li><h4>13:00</h4></li>
+	            		<li><h4>14:00</h4></li>
+	            		<li><h4>15:00</h4></li>
+	            		<li><h4>16:00</h4></li>
+	            		<li><h4>17:00</h4></li>
+	            		<li><h4>18:00</h4></li>
+	            	</ul>
             	</div>
-            	<ul class="calendar-body-grid grid_6 alpha omega">
-            		<li><h4>7:00</h4></li>
-            		<li><h4>8:00</h4></li>
-            		<li><h4>9:00</h4></li>
-            		<li><h4>10:00</h4></li>
-            		<li><h4>11:00</h4></li>
-            		<li><h4>12:00</h4></li>
-            	</ul>
             </div>
         
+        </div>
+        
+        <div class="footer">
+        	<h4>Disclaimer</h4>
+        	<p>
+Right now, everything is stored in plain text. That means that I'm taking no precautions with your precious, precious google data. I can promise that I won't steal your passwords for anything (or even look at them), but from a security standpoint, I recommend using a test account. I'm planning on implementing Google's AuthSub authentication, but I haven't done so yet.
+        	</p>
         </div>
 		<?php } ?>
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
