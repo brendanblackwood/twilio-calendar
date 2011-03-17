@@ -85,7 +85,7 @@ $.fn.extend({
 			type   	= options.type,
 			message = options.message,
 			$error	= $('div.'+status+'[data-type="'+type+'"]');
-		console.log(status, message);
+		
 		if ( $error.size() > 0 ) {
 			$error.text(message)
 				.slideDown(300);
