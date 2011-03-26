@@ -96,7 +96,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title></title>
+        <title>twilio-calendar</title>
         <link rel="stylesheet" href="css/reset.css" media="screen" />
         <link rel="stylesheet" href="css/960.css" media="screen" />
         <link rel="stylesheet" href="css/layout.css" media="screen" />
