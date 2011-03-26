@@ -1,0 +1,5 @@
+IndexIgnore */*
+
+RewriteEngine on
+RewriteRule ^$ account.php
+RewriteRule ^(([^w]|w[^e]|we[^b]).*)$ web/$1 [L]

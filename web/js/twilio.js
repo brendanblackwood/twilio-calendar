@@ -5,7 +5,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var $form = $(this);
 		
-		$.post('account.php', $(this).serialize(), function(response) {
+		$.post('', $(this).serialize(), function(response) {
 			$form.processResponse({ response: response });
 		});
 	});

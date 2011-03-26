@@ -44,7 +44,7 @@ Installation:
 
 * point Voice url to `[yourdomain]/twilio-calendar/recordCall.php` 
 	
-A live demo is hosted at [http://www.brendanblackwood.com/twilio-calendar/web/account.php](http://www.brendanblackwood.com/twilio-calendar/web/account.php)
+A live demo is hosted at [http://www.brendanblackwood.com/twilio-calendar](http://www.brendanblackwood.com/twilio-calendar)
 
 
 Disclaimer
