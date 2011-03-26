@@ -1,5 +1,5 @@
 <?php
-	require 'lib/common.php';
+	require '../lib/common.php';
 	
 	$fp = fopen('debug.log', 'a');
 	$log = print_r($_REQUEST, true) . "\n";
