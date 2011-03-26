@@ -1,6 +1,6 @@
 <?php
 
-	set_include_path(get_include_path() . PATH_SEPARATOR . getcwd() . '/../lib/');
+	set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__));
 	
 	// Pull in Zend PHP Gdata client library
 	require 'Zend/Loader.php';
@@ -12,7 +12,7 @@
 	
 	// Get configs
 	global $aConfig;
-	$aConfig = parse_ini_file('../calendar.ini', true);
+	$aConfig = parse_ini_file(dirname(__FILE__) . '/../calendar.ini', true);
 	
 	/**
 	 * Attempt to retrieve an account by phone number from the database
